@@ -102,7 +102,7 @@ namespace Tarea_2.Controllers
             List<Task> taskList;
             if (id==0)
             {
-                taskList = TaskDts.GetInstanceTaskDts().getTaskListFilter(false);
+                taskList = TaskDts.GetInstanceTaskDts().getTaskListFilter(true);
 
             }
             else {
