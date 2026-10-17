@@ -81,7 +81,7 @@ namespace Tarea_2.Models
         public List<Task> getTaskListFilter(bool isPending)
         {
             taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
-            return taskList.Where(task => task.Status ==(isPending?"Pendiente":"Completado")  ).ToList();
+            return taskList.Where(task => task.Status ==(isPending?"Pendiente":"Completada")  ).ToList();
 
         }
     }
