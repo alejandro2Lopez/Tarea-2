@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Task";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>task</title>
+</head>
+<body>
+
+
+
+
+
+
+    <div class="mb-4">
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modaltask"
+                id="btnAdd">
+            Agregar tarea
+        </button>
+    </div>
+
+
+    <div class="mb-3">
+        <h4>Tareas agregadas</h4>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tablatask">
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+
+    <div class="modal fade" id="modaltask" tabindex="-1"
+         aria-labelledby="tituloModaltask" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModaltask">
+                        Agregar Tarea
+                    </h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formtask">
+
+
+                        <div class="row mb-3">
+                            <input type="hidden" id="taskId" value="0">
+                            <div class="col-md-6">
+                                <label class="form-label">Título</label>
+                                <input type="text" class="form-control"
+                                       id="title" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Descripción</label>
+                                <textarea id="description"
+                                          class="form-control"
+                                          rows="2" required></textarea>
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Estado</label>
+                                <select id="status" class="form-select" required>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Completada">Completada</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" form="formtask"
+                            class="btn btn-primary" id="btnGuardartask">
+                        Guardar Tarea
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+@section Scripts {
+    <script src="@Url.Content("~/Scripts/data/Task.js")"></script>
+   
+}
+</html>
