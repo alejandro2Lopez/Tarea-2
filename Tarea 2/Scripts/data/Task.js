@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    getTaskList();
+    getTaskList(3);
   
     $("#btnAdd").on("click", function () {
 
@@ -12,8 +12,22 @@
 
     });
 
-});
 
+
+});
+$("#statusFilter").on("change", function () {
+    const estado = $(this).val();
+   
+    if (estado == "Pendiente") {
+        getTaskList(1);
+    } else if (estado == "Completada") {
+        getTaskList(2);
+    } else {
+        getTaskList(3);
+    }
+  
+
+});
 $("#formtask").on("submit", function (e) {
 
     e.preventDefault();
@@ -55,7 +69,7 @@ $("#formtask").on("submit", function (e) {
 
             $("#formtask")[0].reset();
 
-            getTaskList();
+            getTaskList(3);
 
 
 
@@ -77,9 +91,19 @@ $("#formtask").on("submit", function (e) {
 
 
 });
-function getTaskList() {
+function getTaskList(isFilter) {
+    var url;
+    if (isFilter == 1) {
+        url = `/Task/GetTaskListFilter/${1}`
+    } else if (isFilter == 2) {
+        url = `/Task/GetTaskListFilter/${0}`
+    } else {
+        url = '/Task/GetTaskList'
+    }
+
+
     $.ajax({
-        url: '/Task/GetTaskList',
+        url: url,
         type: 'GET',
         dataType: 'json',
         success: function (respuesta) {
@@ -130,7 +154,7 @@ function deleteTask(id) {
         dataType: 'json',
         success: function (respuesta) {
             
-            getTaskList();
+            getTaskList(3);
             alert("La tarea ha sido eliminada de manera exitosa.");
         },
         error: function (xhr) {
@@ -177,3 +201,4 @@ function updatetask(id) {
         }
     });
 }
+
