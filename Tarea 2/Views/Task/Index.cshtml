@@ -30,7 +30,18 @@
     <div class="mb-3">
         <h4>Tareas agregadas</h4>
     </div>
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <label for="statusFilter" class="form-label mb-0">
+            Filtrar por estado:
+        </label>
 
+        <select id="statusFilter"
+                class="form-select w-auto">
+            <option value="Todas">Todas</option>
+            <option value="Pendiente">Pendientes</option>
+            <option value="Completada">Completadas</option>
+        </select>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
