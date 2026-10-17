@@ -11,12 +11,12 @@ namespace Tarea_2.Models
     public class TaskDts
     {
         private static TaskDts instanceTaskDts;
-        private List<Task> listTask;
+        private List<Task> taskList;
 
         private TaskDts()
         {
-            listTask = new List<Task>();
-
+            taskList = new List<Task>();
+            HttpContext.Current.Session["TaskList"] = taskList;
         }
 
         public static TaskDts GetInstanceTaskDts()
@@ -32,39 +32,46 @@ namespace Tarea_2.Models
         }
 
         public void addTask(Task task){
-
-            listTask.Add(task);
-
-            HttpContext.Current.Session["TaskList"] = listTask;
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
+            task.Id = taskList.Any() ? taskList.Max(taskC => taskC.Id) + 1: 1;
+            taskList.Add(task);
+            HttpContext.Current.Session["TaskList"] = taskList;
 
 }
         public int removeTask(int id) {
 
-            listTask = HttpContext.Current.Session["TaskList"] as List<Task>;
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
 
-            int eliminados = listTask.RemoveAll( x => x.Id == id);
+            int eliminados = taskList.RemoveAll( x => x.Id == id);
 
-            HttpContext.Current.Session["TaskList"] = listTask;
+            HttpContext.Current.Session["TaskList"] = taskList;
             return eliminados;
 
         }
 
         public List <Task> getTaskList()
         {
-            listTask = HttpContext.Current.Session["TaskList"] as List<Task>;
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
 
-            return listTask;
+            return taskList;
+        }
+       
+        public Task getTaskById(int id)
+        {
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
+
+            return taskList.FirstOrDefault(task2 => task2.Id == id);
         }
 
-        public int updateTask(int id, Task task) {
-            listTask = HttpContext.Current.Session["TaskList"] as List<Task>;
-            Task task1 = listTask.FirstOrDefault( task2 => task2.Id == id);
+        public int updateTask(Task task) {
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
+            Task task1 = taskList.FirstOrDefault( task2 => task2.Id == task.Id);
             if (task1 != null)
             {
                 task1.Title = task.Title;
                 task1.Description = task.Description;
                 task.Status = task1.Status;
-                HttpContext.Current.Session["TaskList"] = listTask;
+                HttpContext.Current.Session["TaskList"] = taskList;
                 return 1;
             }
             else {
@@ -73,8 +80,8 @@ namespace Tarea_2.Models
         }
         public List<Task> getTaskListFilter(bool isPending)
         {
-            listTask = HttpContext.Current.Session["TaskList"] as List<Task>;
-            return listTask.Where(task => task.Status ==(isPending?"Pendiente":"Completado")  ).ToList();
+            taskList = HttpContext.Current.Session["TaskList"] as List<Task>;
+            return taskList.Where(task => task.Status ==(isPending?"Pendiente":"Completado")  ).ToList();
 
         }
     }
