@@ -70,7 +70,7 @@ namespace Tarea_2.Models
             {
                 task1.Title = task.Title;
                 task1.Description = task.Description;
-                task.Status = task1.Status;
+                task1.Status = task.Status;
                 HttpContext.Current.Session["TaskList"] = taskList;
                 return 1;
             }
