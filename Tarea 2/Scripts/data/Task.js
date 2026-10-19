@@ -31,7 +31,9 @@ $("#statusFilter").on("change", function () {
 $("#formtask").on("submit", function (e) {
 
     e.preventDefault();
-
+    if (!validarTarea()) {
+        return;
+    }
     const id = parseInt($("#taskId").val(), 10) || 0;
 
     const task = {
