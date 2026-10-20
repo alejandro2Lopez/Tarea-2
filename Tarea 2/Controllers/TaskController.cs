@@ -140,7 +140,7 @@ namespace Tarea_2.Controllers
         }
 
         [HttpPost]
-        public JsonResult addTask(Task task)
+        public JsonResult AddTask(Task task)
         {
             TaskDts.GetInstanceTaskDts().addTask(task);
             return Json(new
